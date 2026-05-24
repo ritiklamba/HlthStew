@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>HlthStew</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&family=Inter:wght@300;400;500&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+
+  <header class="hud">
+    <div class="hud-left">
+      <div class="avatar" id="settingsBtn">A</div>
+      <span class="session-text">Aryan</span>
+    </div>
+    <div class="hud-center">
+      <span class="day-counter">Day <strong>12</strong> of 45</span>
+      <span class="hud-dot">·</span>
+      <span class="cycle-label">Bulk cycle</span>
+    </div>
+    <div class="hud-right">
+      <div class="bio-pill">61.5 kg <span class="arr">→</span> 80 kg</div>
+      <div class="export-btn" id="exportBtn">↓ Export</div>
+    </div>
+  </header>
+
+  <main class="main-grid">
+    <section class="panel card" id="leftPanel">
+      <p class="panel-label">Input Chamber</p>
+      <div class="terminal">
+        <div class="term-row">
+          <span class="prompt">&gt;</span>
+          <input class="term-input" id="foodInput" type="text" placeholder="200g chicken, 3 eggs..." autocomplete="off"/>
+        </div>
+        <div class="ghost-text" id="ghostText">Start typing to see estimates...</div>
+      </div>
+      <div class="logged-list" id="loggedList"></div>
+      <hr class="divider"/>
+      <p class="panel-label">The Ledger</p>
+      <div class="ledger-header">
+        <span class="ledger-date" id="ledgerDate"></span>
+      </div>
+      <textarea class="ledger-area" id="ledgerArea" placeholder="## Today&#10;✓ Morning run — 5km&#10;Notes: Felt strong."></textarea>
+    </section>
+
+    <section class="panel card vessel-panel" id="centerPanel">
+      <div class="cal-crown">
+        <div class="cal-number" id="calNumber">0</div>
+        <div class="cal-unit">kcal today</div>
+        <div class="cal-target" id="calTarget">Target 3,000 kcal · 0% filled</div>
+      </div>
+      <div class="bowl-wrap">
+        <svg class="bowl-svg" viewBox="0 0 160 180" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <clipPath id="bowlClip">
+              <path d="M20,28 Q14,110 22,145 Q45,172 80,174 Q115,172 138,145 Q146,110 140,28 Z"/>
+            </clipPath>
+          </defs>
+          <path d="M20,28 Q14,110 22,145 Q45,172 80,174 Q115,172 138,145 Q146,110 140,28 Z" fill="#F0E8D8" stroke="#D9CCBA" stroke-width="1.2"/>
+          <rect id="fatsLayer" x="10" y="174" width="140" height="0" fill="#854F0B" opacity="0.3" clip-path="url(#bowlClip)"/>
+          <rect id="carbsLayer" x="10" y="174" width="140" height="0" fill="#3B6D11" opacity="0.28" clip-path="url(#bowlClip)"/>
+          <rect id="proteinLayer" x="10" y="174" width="140" height="0" fill="#993C1D" opacity="0.32" clip-path="url(#bowlClip)"/>
+          <path d="M20,28 Q14,110 22,145 Q45,172 80,174 Q115,172 138,145 Q146,110 140,28 Z" fill="none" stroke="#993C1D" stroke-width="1" stroke-dasharray="4,5" opacity="0.35"/>
+          <ellipse cx="80" cy="28" rx="60" ry="9" fill="#F5F0E8" stroke="#D9CCBA" stroke-width="0.8"/>
+          <text id="fillPct" x="80" y="108" text-anchor="middle" fill="#B0A090" font-size="11" font-family="Inter, sans-serif">0% filled</text>
+        </svg>
+      </div>
+      <div class="macro-legend">
+        <div class="leg-item"><div class="leg-dot" style="background:#993C1D"></div>Protein</div>
+        <div class="leg-item"><div class="leg-dot" style="background:#3B6D11"></div>Carbs</div>
+        <div class="leg-item"><div class="leg-dot" style="background:#854F0B"></div>Fats</div>
+      </div>
+    </section>
+
+    <section class="panel card" id="rightPanel">
+      <p class="panel-label">Steward's Report</p>
+      <div class="rings-wrap">
+        <div class="ring-row">
+          <svg viewBox="0 0 60 60" class="ring-svg">
+            <circle cx="30" cy="30" r="24" fill="none" stroke="#F5DDD0" stroke-width="6"/>
+            <circle cx="30" cy="30" r="24" fill="none" stroke="#993C1D" stroke-width="6" stroke-dasharray="0 151" stroke-linecap="round" transform="rotate(-90 30 30)" id="proteinRing"/>
+            <text x="30" y="35" text-anchor="middle" fill="#2C1A0E" font-size="12" font-weight="500" font-family="Inter, sans-serif" id="proteinPct">0%</text>
+          </svg>
+          <div class="ring-info">
+            <div class="ring-name">Protein</div>
+            <div class="ring-val" id="proteinVal">0g <span class="ring-target">/ 200g</span></div>
+            <div class="ring-sub">Priority anchor</div>
+          </div>
+        </div>
+        <div class="ring-row">
+          <svg viewBox="0 0 60 60" class="ring-svg">
+            <circle cx="30" cy="30" r="24" fill="none" stroke="#D6EAC8" stroke-width="6"/>
+            <circle cx="30" cy="30" r="24" fill="none" stroke="#3B6D11" stroke-width="6" stroke-dasharray="0 151" stroke-linecap="round" transform="rotate(-90 30 30)" id="carbsRing"/>
+            <text x="30" y="35" text-anchor="middle" fill="#2C1A0E" font-size="12" font-weight="500" font-family="Inter, sans-serif" id="carbsPct">0%</text>
+          </svg>
+          <div class="ring-info">
+            <div class="ring-name">Carbohydrates</div>
+            <div class="ring-val" id="carbsVal">0g <span class="ring-target">/ 400g</span></div>
+            <div class="ring-sub">Energy allocation</div>
+          </div>
+        </div>
+        <div class="ring-row">
+          <svg viewBox="0 0 60 60" class="ring-svg">
+            <circle cx="30" cy="30" r="24" fill="none" stroke="#FAEEDA" stroke-width="6"/>
+            <circle cx="30" cy="30" r="24" fill="none" stroke="#854F0B" stroke-width="6" stroke-dasharray="0 151" stroke-linecap="round" transform="rotate(-90 30 30)" id="fatsRing"/>
+            <text x="30" y="35" text-anchor="middle" fill="#2C1A0E" font-size="12" font-weight="500" font-family="Inter, sans-serif" id="fatsPct">0%</text>
+          </svg>
+          <div class="ring-info">
+            <div class="ring-name">Fats</div>
+            <div class="ring-val" id="fatsVal">0g <span class="ring-target">/ 80g</span></div>
+            <div class="ring-sub">Stable fats</div>
+          </div>
+        </div>
+      </div>
+      <hr class="divider"/>
+      <p class="panel-label">Watch Grid · <span id="watchProgress">12 / 45</span></p>
+      <div class="dot-grid" id="dotGrid"></div>
+    </section>
+  </main>
+
+  <footer class="footer card">
+    <div class="footer-top">
+      <span class="footer-title">Chronos — 30 day history</span>
+      <div class="footer-legend">
+        <div class="leg-item"><div class="leg-line" style="background:#993C1D"></div>Calories</div>
+        <div class="leg-item"><div class="leg-line" style="background:#3B6D11"></div>Protein</div>
+        <div class="leg-item"><div class="leg-line" style="background:#854F0B"></div>Carbs</div>
+      </div>
+    </div>
+    <canvas id="chronosChart" height="70"></canvas>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="utils/storage.js"></script>
+  <script src="utils/parser.js"></script>
+  <script src="components/hud.js"></script>
+  <script src="components/vessel.js"></script>
+  <script src="components/rings.js"></script>
+  <script src="components/graph.js"></script>
+  <script src="components/ledger.js"></script>
+  <script src="app.js"></script>
+
+  <script>
+  function initSettings() {
+    const defaults = { name:'Aryan', currentWeight:61.5, targetWeight:80, targetCalories:3000, targetProtein:200, targetCarbs:400, targetFats:80, cycleLength:45, currentDay:12, cycleName:'Bulk cycle' };
+    const saved = JSON.parse(localStorage.getItem('hlthstew_settings') || '{}');
+    const s = { ...defaults, ...saved };
+    applySettings(s);
+    const panel = document.createElement('div');
+    panel.id = 'settingsPanel';
+    panel.className = 'settings-overlay hidden';
+    panel.innerHTML = `
+      <div class="settings-card">
+        <div class="settings-header">
+          <span class="settings-title">Settings</span>
+          <span class="settings-close" id="settingsClose">✕</span>
+        </div>
+        <div class="settings-body">
+          <div class="settings-group"><label>Name</label><input type="text" id="s-name" value="${s.name}" /></div>
+          <div class="settings-group"><label>Current Weight (kg)</label><input type="number" id="s-cweight" value="${s.currentWeight}" step="0.1" /></div>
+          <div class="settings-group"><label>Target Weight (kg)</label><input type="number" id="s-tweight" value="${s.targetWeight}" step="0.1" /></div>
+          <div class="settings-group"><label>Daily Calorie Target</label><input type="number" id="s-calories" value="${s.targetCalories}" step="50" /></div>
+          <div class="settings-group"><label>Protein Target (g)</label><input type="number" id="s-protein" value="${s.targetProtein}" step="5" /></div>
+          <div class="settings-group"><label>Carbs Target (g)</label><input type="number" id="s-carbs" value="${s.targetCarbs}" step="10" /></div>
+          <div class="settings-group"><label>Fats Target (g)</label><input type="number" id="s-fats" value="${s.targetFats}" step="5" /></div>
+          <div class="settings-group"><label>Cycle Length (days)</label><input type="number" id="s-cycle" value="${s.cycleLength}" /></div>
+          <div class="settings-group"><label>Current Day</label><input type="number" id="s-day" value="${s.currentDay}" /></div>
+          <div class="settings-group"><label>Cycle Name</label><input type="text" id="s-cyclename" value="${s.cycleName}" /></div>
+          <button class="settings-save" id="settingsSave">Save Changes</button>
+        </div>
+      </div>`;
+    document.body.appendChild(panel);
+    document.getElementById('settingsBtn').addEventListener('click', () => panel.classList.remove('hidden'));
+    document.getElementById('settingsClose').addEventListener('click', () => panel.classList.add('hidden'));
+    panel.addEventListener('click', (e) => { if (e.target === panel) panel.classList.add('hidden'); });
+    document.getElementById('settingsSave').addEventListener('click', saveSettings);
+  }
+
+  function saveSettings() {
+    const s = {
+      name: document.getElementById('s-name').value,
+      currentWeight: parseFloat(document.getElementById('s-cweight').value),
+      targetWeight: parseFloat(document.getElementById('s-tweight').value),
+      targetCalories: parseInt(document.getElementById('s-calories').value),
+      targetProtein: parseInt(document.getElementById('s-protein').value),
+      targetCarbs: parseInt(document.getElementById('s-carbs').value),
+      targetFats: parseInt(document.getElementById('s-fats').value),
+      cycleLength: parseInt(document.getElementById('s-cycle').value),
+      currentDay: parseInt(document.getElementById('s-day').value),
+      cycleName: document.getElementById('s-cyclename').value
+    };
+    localStorage.setItem('hlthstew_settings', JSON.stringify(s));
+    applySettings(s);
+    document.getElementById('settingsPanel').classList.add('hidden');
+  }
+
+  function applySettings(s) {
+    TARGETS.calories = s.targetCalories;
+    TARGETS.protein = s.targetProtein;
+    TARGETS.carbs = s.targetCarbs;
+    TARGETS.fats = s.targetFats;
+    document.querySelector('.session-text').textContent = s.name;
+    document.querySelector('.avatar').textContent = s.name.charAt(0).toUpperCase();
+    document.querySelector('.bio-pill').innerHTML = s.currentWeight + ' kg <span class="arr">→</span> ' + s.targetWeight + ' kg';
+    document.querySelector('.day-counter').innerHTML = 'Day <strong>' + s.currentDay + '</strong> of ' + s.cycleLength;
+    document.querySelector('.cycle-label').textContent = s.cycleName;
+    document.getElementById('watchProgress').textContent = s.currentDay + ' / ' + s.cycleLength;
+    const rt = document.querySelectorAll('.ring-target');
+    if (rt[0]) rt[0].textContent = '/ ' + s.targetProtein + 'g';
+    if (rt[1]) rt[1].textContent = '/ ' + s.targetCarbs + 'g';
+    if (rt[2]) rt[2].textContent = '/ ' + s.targetFats + 'g';
+  }
+
+  document.addEventListener('DOMContentLoaded', initSettings);
+  </script>
+
+</body>
+</html>

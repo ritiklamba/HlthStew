@@ -1,0 +1,344 @@
+
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:var(--font-sans)}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;padding:4px}
+  .design-wrap{border-radius:12px;overflow:hidden;border:0.5px solid rgba(0,0,0,0.1)}
+  .design-label{font-size:11px;font-weight:500;padding:8px 12px;letter-spacing:0.5px;border-bottom:0.5px solid rgba(0,0,0,0.08)}
+
+  .d1{background:#0f0c1a}
+  .d1 .design-label{background:#1a1030;color:#a78bfa;border-color:rgba(255,255,255,0.08)}
+  .d2{background:#F5F0E8}
+  .d2 .design-label{background:#FFFAF4;color:#B56B3A;border-color:#E2D5C3}
+  .d3{background:#F5F0E8}
+  .d3 .design-label{background:#FFFAF4;color:#993C1D;border-color:#E2D5C3}
+  .d4{background:#F5F0E8}
+  .d4 .design-label{background:#FFFAF4;color:#4A7C2F;border-color:#E2D5C3}
+
+  .mini{padding:10px;display:flex;flex-direction:column;gap:7px}
+
+  .m-hud{display:flex;justify-content:space-between;align-items:center;padding:6px 10px;border-radius:7px;font-size:10px}
+  .m-hud-dark{background:rgba(255,255,255,0.06);border:0.5px solid rgba(255,255,255,0.12);color:rgba(255,255,255,0.6)}
+  .m-hud-warm{background:#FFFAF4;border:0.5px solid #E2D5C3;color:#8C7B6A}
+  .m-brand-dark{font-family:var(--font-serif);color:#a78bfa;font-size:11px}
+  .m-brand-warm{font-family:var(--font-serif);color:#2C1A0E;font-size:11px}
+  .m-day-dark{color:rgba(255,255,255,0.5);font-size:10px}
+  .m-day-warm{color:#8C7B6A;font-size:10px}
+  .m-pill-dark{background:rgba(167,139,250,0.15);border:0.5px solid rgba(167,139,250,0.3);border-radius:10px;padding:3px 7px;color:#a78bfa;font-size:10px}
+  .m-pill-warm{background:#F0E8D8;border:0.5px solid #D9CCBA;border-radius:10px;padding:3px 7px;color:#5C4030;font-size:10px}
+
+  .m-row{display:grid;grid-template-columns:1fr 0.9fr 1fr;gap:6px}
+  .m-card-dark{background:rgba(255,255,255,0.05);border:0.5px solid rgba(255,255,255,0.1);border-radius:8px;padding:8px}
+  .m-card-warm{background:#FFFAF4;border:0.5px solid #E2D5C3;border-radius:8px;padding:8px}
+
+  .m-clabel-dark{font-size:9px;color:rgba(255,255,255,0.3);letter-spacing:0.8px;text-transform:uppercase;margin-bottom:6px}
+  .m-clabel-warm{font-size:9px;color:#A8967E;letter-spacing:0.8px;text-transform:uppercase;margin-bottom:6px}
+
+  .m-term-dark{background:rgba(0,0,0,0.3);border:0.5px solid rgba(255,255,255,0.08);border-radius:5px;padding:5px 7px;font-size:9px;font-family:var(--font-mono);color:rgba(255,255,255,0.5)}
+  .m-term-warm{background:#F5F0E8;border:0.5px solid #D9CCBA;border-radius:5px;padding:5px 7px;font-size:9px;font-family:var(--font-mono);color:#8C7B6A}
+  .m-prompt-dark{color:#a78bfa}
+  .m-prompt-warm{color:#B56B3A}
+
+  .m-ledger-dark{background:rgba(0,0,0,0.2);border:0.5px solid rgba(255,255,255,0.06);border-radius:5px;padding:5px 7px;margin-top:5px}
+  .m-ledger-warm{background:#F5F0E8;border:0.5px solid #D9CCBA;border-radius:5px;padding:5px 7px;margin-top:5px}
+  .m-lline{font-size:9px;line-height:1.8}
+
+  .m-vessel{display:flex;flex-direction:column;align-items:center}
+  .m-calnum-dark{font-size:18px;color:rgba(255,255,255,0.92);text-align:center;letter-spacing:-0.5px}
+  .m-calnum-warm{font-family:var(--font-serif);font-size:18px;color:#2C1A0E;text-align:center;letter-spacing:-0.5px}
+  .m-callabel-dark{font-size:9px;color:rgba(255,255,255,0.35);text-align:center}
+  .m-callabel-warm{font-size:9px;color:#A8967E;text-align:center}
+  .m-caltarget-dark{font-size:9px;color:rgba(167,139,250,0.6);text-align:center;margin-top:2px}
+  .m-caltarget-warm{font-size:9px;color:#B56B3A;text-align:center;margin-top:2px}
+
+  .m-ring-row{display:flex;align-items:center;gap:5px;margin-bottom:5px}
+  .m-ring-name-dark{font-size:9px;color:rgba(255,255,255,0.4)}
+  .m-ring-name-warm{font-size:9px;color:#A8967E}
+  .m-ring-val-dark{font-size:10px;color:rgba(255,255,255,0.85);font-weight:500}
+  .m-ring-val-warm{font-family:var(--font-serif);font-size:10px;color:#2C1A0E;font-weight:500}
+
+  .m-dotgrid{display:grid;grid-template-columns:repeat(9,1fr);gap:3px;margin-top:5px}
+  .dot{width:10px;height:10px;border-radius:50%}
+
+  .m-footer-dark{background:rgba(255,255,255,0.04);border:0.5px solid rgba(255,255,255,0.08);border-radius:7px;padding:7px 10px}
+  .m-footer-warm{background:#FFFAF4;border:0.5px solid #E2D5C3;border-radius:7px;padding:7px 10px}
+  .m-ftitle-dark{font-size:9px;color:rgba(255,255,255,0.3);margin-bottom:5px}
+  .m-ftitle-warm{font-family:var(--font-serif);font-size:9px;color:#2C1A0E;margin-bottom:5px}
+</style>
+
+<div class="grid">
+  <h2 class="sr-only">Side-by-side comparison of all four HlthStew design variants</h2>
+
+  <div class="design-wrap d1">
+    <div class="design-label">1 — Dark tactical (original)</div>
+    <div class="mini">
+      <div class="m-hud m-hud-dark">
+        <span class="m-brand-dark">hlthstew</span>
+        <span class="m-day-dark">Day 12 / 45</span>
+        <span class="m-pill-dark">61.5 → 80 kg</span>
+      </div>
+      <div class="m-row">
+        <div class="m-card-dark">
+          <div class="m-clabel-dark">Input</div>
+          <div class="m-term-dark"><span class="m-prompt-dark">&gt;</span> 200g chicken...</div>
+          <div class="m-ledger-dark">
+            <div class="m-lline" style="color:rgba(255,255,255,0.5)"><span style="color:#4ade80">✓</span> Morning run</div>
+            <div class="m-lline" style="color:rgba(255,255,255,0.5)"><span style="color:#4ade80">✓</span> Bench press</div>
+            <div class="m-lline" style="color:rgba(255,255,255,0.3)">○ Evening walk</div>
+          </div>
+        </div>
+        <div class="m-card-dark m-vessel">
+          <div class="m-calnum-dark">2,140</div>
+          <div class="m-callabel-dark">kcal today</div>
+          <div class="m-caltarget-dark">Target 3,000+</div>
+          <svg viewBox="0 0 80 90" style="width:70px;height:70px;margin-top:4px">
+            <defs><clipPath id="bc1"><path d="M10,14 Q8,54 11,72 Q22,88 40,89 Q58,88 69,72 Q72,54 70,14 Z"/></clipPath></defs>
+            <path d="M10,14 Q8,54 11,72 Q22,88 40,89 Q58,88 69,72 Q72,54 70,14 Z" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.18)" stroke-width="0.8"/>
+            <rect x="5" y="48" width="70" height="18" fill="rgba(248,196,80,0.25)" clip-path="url(#bc1)"/>
+            <rect x="5" y="58" width="70" height="17" fill="rgba(96,165,250,0.22)" clip-path="url(#bc1)"/>
+            <rect x="5" y="68" width="70" height="26" fill="rgba(200,200,215,0.18)" clip-path="url(#bc1)"/>
+            <path d="M10,14 Q8,54 11,72 Q22,88 40,89 Q58,88 69,72 Q72,54 70,14 Z" fill="none" stroke="rgba(167,139,250,0.35)" stroke-width="0.8" stroke-dasharray="2,3"/>
+          </svg>
+          <div style="display:flex;gap:6px;margin-top:4px">
+            <div style="display:flex;align-items:center;gap:3px;font-size:8px;color:rgba(255,255,255,0.4)"><div style="width:6px;height:6px;border-radius:50%;background:#f8c450"></div>P</div>
+            <div style="display:flex;align-items:center;gap:3px;font-size:8px;color:rgba(255,255,255,0.4)"><div style="width:6px;height:6px;border-radius:50%;background:#60a5fa"></div>C</div>
+            <div style="display:flex;align-items:center;gap:3px;font-size:8px;color:rgba(255,255,255,0.4)"><div style="width:6px;height:6px;border-radius:50%;background:#c8c8d7"></div>F</div>
+          </div>
+        </div>
+        <div class="m-card-dark">
+          <div class="m-clabel-dark">Report</div>
+          <div class="m-ring-row">
+            <svg viewBox="0 0 28 28" style="width:26px;height:26px;flex-shrink:0"><circle cx="14" cy="14" r="10" fill="none" stroke="rgba(248,196,80,0.15)" stroke-width="3"/><circle cx="14" cy="14" r="10" fill="none" stroke="#f8c450" stroke-width="3" stroke-dasharray="47 63" stroke-linecap="round" transform="rotate(-90 14 14)"/></svg>
+            <div><div class="m-ring-name-dark">Protein</div><div class="m-ring-val-dark">150g</div></div>
+          </div>
+          <div class="m-ring-row">
+            <svg viewBox="0 0 28 28" style="width:26px;height:26px;flex-shrink:0"><circle cx="14" cy="14" r="10" fill="none" stroke="rgba(96,165,250,0.15)" stroke-width="3"/><circle cx="14" cy="14" r="10" fill="none" stroke="#60a5fa" stroke-width="3" stroke-dasharray="41 63" stroke-linecap="round" transform="rotate(-90 14 14)"/></svg>
+            <div><div class="m-ring-name-dark">Carbs</div><div class="m-ring-val-dark">260g</div></div>
+          </div>
+          <div class="m-ring-row">
+            <svg viewBox="0 0 28 28" style="width:26px;height:26px;flex-shrink:0"><circle cx="14" cy="14" r="10" fill="none" stroke="rgba(200,200,215,0.15)" stroke-width="3"/><circle cx="14" cy="14" r="10" fill="none" stroke="#c8c8d7" stroke-width="3" stroke-dasharray="28 63" stroke-linecap="round" transform="rotate(-90 14 14)"/></svg>
+            <div><div class="m-ring-name-dark">Fats</div><div class="m-ring-val-dark">36g</div></div>
+          </div>
+          <div style="font-size:9px;color:rgba(255,255,255,0.25);margin-top:4px;margin-bottom:4px">Watch grid</div>
+          <div class="m-dotgrid">
+            <div class="dot" style="background:#4ade80"></div><div class="dot" style="background:#4ade80"></div><div class="dot" style="background:#4ade80"></div><div class="dot" style="background:#4ade80"></div><div class="dot" style="background:#4ade80"></div><div class="dot" style="background:#f87171"></div><div class="dot" style="background:#4ade80"></div><div class="dot" style="background:#4ade80"></div><div class="dot" style="background:#4ade80"></div>
+            <div class="dot" style="background:#4ade80"></div><div class="dot" style="background:#4ade80"></div><div class="dot" style="background:#4ade80"></div><div class="dot" style="background:rgba(255,255,255,0.08);border:0.5px solid rgba(255,255,255,0.1)"></div><div class="dot" style="background:rgba(255,255,255,0.08)"></div><div class="dot" style="background:rgba(255,255,255,0.08)"></div><div class="dot" style="background:rgba(255,255,255,0.08)"></div><div class="dot" style="background:rgba(255,255,255,0.08)"></div><div class="dot" style="background:rgba(255,255,255,0.08)"></div>
+          </div>
+        </div>
+      </div>
+      <div class="m-footer-dark">
+        <div class="m-ftitle-dark">Chronos — 30 day history</div>
+        <svg viewBox="0 0 300 30" style="width:100%;display:block">
+          <polyline points="0,22 20,20 40,18 60,19 80,16 100,13 120,25 140,17 160,14 180,12 200,15 220,18 240,16 260,13 280,12 300,10" fill="none" stroke="#a78bfa" stroke-width="1.2" stroke-linejoin="round"/>
+          <polyline points="0,24 20,23 40,21 60,22 80,20 100,18 120,27 140,21 160,19 180,17 200,20 220,22 240,20 260,18 280,17 300,15" fill="none" stroke="#f8c450" stroke-width="0.8" stroke-linejoin="round"/>
+          <polyline points="0,26 20,25 40,24 60,25 80,23 100,21 120,29 140,24 160,22 180,20 200,23 220,25 240,23 260,21 280,20 300,18" fill="none" stroke="#60a5fa" stroke-width="0.8" stroke-linejoin="round"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <div class="design-wrap d2">
+    <div class="design-label">2 — Warm organic (muted)</div>
+    <div class="mini">
+      <div class="m-hud m-hud-warm">
+        <span class="m-brand-warm">hlthstew</span>
+        <span class="m-day-warm">Day 12 / 45</span>
+        <span class="m-pill-warm">61.5 → 80 kg</span>
+      </div>
+      <div class="m-row">
+        <div class="m-card-warm">
+          <div class="m-clabel-warm">Input</div>
+          <div class="m-term-warm"><span class="m-prompt-warm">&gt;</span> 200g chicken...</div>
+          <div class="m-ledger-warm">
+            <div class="m-lline" style="color:#7A6858"><span style="color:#7A9E7E">✓</span> Morning run</div>
+            <div class="m-lline" style="color:#7A6858"><span style="color:#7A9E7E">✓</span> Bench press</div>
+            <div class="m-lline" style="color:#C4B49E">○ Evening walk</div>
+          </div>
+        </div>
+        <div class="m-card-warm m-vessel">
+          <div class="m-calnum-warm">2,140</div>
+          <div class="m-callabel-warm">kcal today</div>
+          <div class="m-caltarget-warm">Target 3,000+</div>
+          <svg viewBox="0 0 80 90" style="width:70px;height:70px;margin-top:4px">
+            <defs><clipPath id="bc2m"><path d="M10,14 Q8,54 11,72 Q22,88 40,89 Q58,88 69,72 Q72,54 70,14 Z"/></clipPath></defs>
+            <path d="M10,14 Q8,54 11,72 Q22,88 40,89 Q58,88 69,72 Q72,54 70,14 Z" fill="#F0E8D8" stroke="#D9CCBA" stroke-width="0.8"/>
+            <rect x="5" y="48" width="70" height="18" fill="#C4714A" opacity="0.2" clip-path="url(#bc2m)"/>
+            <rect x="5" y="58" width="70" height="17" fill="#7A9E7E" opacity="0.18" clip-path="url(#bc2m)"/>
+            <rect x="5" y="68" width="70" height="26" fill="#D4A96A" opacity="0.22" clip-path="url(#bc2m)"/>
+            <path d="M10,14 Q8,54 11,72 Q22,88 40,89 Q58,88 69,72 Q72,54 70,14 Z" fill="none" stroke="#B56B3A" stroke-width="0.8" stroke-dasharray="2,3" opacity="0.35"/>
+          </svg>
+          <div style="display:flex;gap:6px;margin-top:4px">
+            <div style="display:flex;align-items:center;gap:3px;font-size:8px;color:#8C7B6A"><div style="width:6px;height:6px;border-radius:50%;background:#C4714A"></div>P</div>
+            <div style="display:flex;align-items:center;gap:3px;font-size:8px;color:#8C7B6A"><div style="width:6px;height:6px;border-radius:50%;background:#7A9E7E"></div>C</div>
+            <div style="display:flex;align-items:center;gap:3px;font-size:8px;color:#8C7B6A"><div style="width:6px;height:6px;border-radius:50%;background:#D4A96A"></div>F</div>
+          </div>
+        </div>
+        <div class="m-card-warm">
+          <div class="m-clabel-warm">Report</div>
+          <div class="m-ring-row">
+            <svg viewBox="0 0 28 28" style="width:26px;height:26px;flex-shrink:0"><circle cx="14" cy="14" r="10" fill="none" stroke="#F0E8D8" stroke-width="3"/><circle cx="14" cy="14" r="10" fill="none" stroke="#C4714A" stroke-width="3" stroke-dasharray="47 63" stroke-linecap="round" transform="rotate(-90 14 14)"/></svg>
+            <div><div class="m-ring-name-warm">Protein</div><div class="m-ring-val-warm">150g</div></div>
+          </div>
+          <div class="m-ring-row">
+            <svg viewBox="0 0 28 28" style="width:26px;height:26px;flex-shrink:0"><circle cx="14" cy="14" r="10" fill="none" stroke="#EAF3DE" stroke-width="3"/><circle cx="14" cy="14" r="10" fill="none" stroke="#7A9E7E" stroke-width="3" stroke-dasharray="41 63" stroke-linecap="round" transform="rotate(-90 14 14)"/></svg>
+            <div><div class="m-ring-name-warm">Carbs</div><div class="m-ring-val-warm">260g</div></div>
+          </div>
+          <div class="m-ring-row">
+            <svg viewBox="0 0 28 28" style="width:26px;height:26px;flex-shrink:0"><circle cx="14" cy="14" r="10" fill="none" stroke="#FAEEDA" stroke-width="3"/><circle cx="14" cy="14" r="10" fill="none" stroke="#D4A96A" stroke-width="3" stroke-dasharray="28 63" stroke-linecap="round" transform="rotate(-90 14 14)"/></svg>
+            <div><div class="m-ring-name-warm">Fats</div><div class="m-ring-val-warm">36g</div></div>
+          </div>
+          <div style="font-size:9px;color:#A8967E;margin-top:4px;margin-bottom:4px">Watch grid</div>
+          <div class="m-dotgrid">
+            <div class="dot" style="background:#7A9E7E"></div><div class="dot" style="background:#7A9E7E"></div><div class="dot" style="background:#7A9E7E"></div><div class="dot" style="background:#7A9E7E"></div><div class="dot" style="background:#7A9E7E"></div><div class="dot" style="background:#C4714A"></div><div class="dot" style="background:#7A9E7E"></div><div class="dot" style="background:#7A9E7E"></div><div class="dot" style="background:#7A9E7E"></div>
+            <div class="dot" style="background:#7A9E7E"></div><div class="dot" style="background:#7A9E7E"></div><div class="dot" style="background:#7A9E7E"></div><div class="dot" style="background:#E8DDD0;border:0.5px solid #D9CCBA"></div><div class="dot" style="background:#E8DDD0;border:0.5px solid #D9CCBA"></div><div class="dot" style="background:#E8DDD0;border:0.5px solid #D9CCBA"></div><div class="dot" style="background:#E8DDD0;border:0.5px solid #D9CCBA"></div><div class="dot" style="background:#E8DDD0;border:0.5px solid #D9CCBA"></div><div class="dot" style="background:#E8DDD0;border:0.5px solid #D9CCBA"></div>
+          </div>
+        </div>
+      </div>
+      <div class="m-footer-warm">
+        <div class="m-ftitle-warm">Chronos — 30 day history</div>
+        <svg viewBox="0 0 300 30" style="width:100%;display:block">
+          <polyline points="0,22 20,20 40,18 60,19 80,16 100,13 120,25 140,17 160,14 180,12 200,15 220,18 240,16 260,13 280,12 300,10" fill="none" stroke="#C4714A" stroke-width="1.2" stroke-linejoin="round"/>
+          <polyline points="0,24 20,23 40,21 60,22 80,20 100,18 120,27 140,21 160,19 180,17 200,20 220,22 240,20 260,18 280,17 300,15" fill="none" stroke="#7A9E7E" stroke-width="0.8" stroke-linejoin="round"/>
+          <polyline points="0,26 20,25 40,24 60,25 80,23 100,21 120,29 140,24 160,22 180,20 200,23 220,25 240,23 260,21 280,20 300,18" fill="none" stroke="#D4A96A" stroke-width="0.8" stroke-linejoin="round"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <div class="design-wrap d3">
+    <div class="design-label">3 — Warm organic · option B (ink contrast) ✦ selected</div>
+    <div class="mini">
+      <div class="m-hud m-hud-warm">
+        <span class="m-brand-warm">hlthstew</span>
+        <span class="m-day-warm">Day 12 / 45</span>
+        <span class="m-pill-warm" style="background:#EAF3DE;border-color:#7A9E7E;color:#27500A">12 day streak</span>
+      </div>
+      <div class="m-row">
+        <div class="m-card-warm">
+          <div class="m-clabel-warm">Input</div>
+          <div class="m-term-warm"><span class="m-prompt-warm">&gt;</span> 200g chicken...</div>
+          <div class="m-ledger-warm">
+            <div class="m-lline" style="color:#7A6858"><span style="color:#3B6D11">✓</span> Morning run</div>
+            <div class="m-lline" style="color:#7A6858"><span style="color:#3B6D11">✓</span> Bench press</div>
+            <div class="m-lline" style="color:#C4B49E">○ Evening walk</div>
+          </div>
+        </div>
+        <div class="m-card-warm m-vessel">
+          <div class="m-calnum-warm">2,140</div>
+          <div class="m-callabel-warm">kcal today</div>
+          <div class="m-caltarget-warm">Target 3,000+</div>
+          <svg viewBox="0 0 80 90" style="width:70px;height:70px;margin-top:4px">
+            <defs><clipPath id="bc3m"><path d="M10,14 Q8,54 11,72 Q22,88 40,89 Q58,88 69,72 Q72,54 70,14 Z"/></clipPath></defs>
+            <path d="M10,14 Q8,54 11,72 Q22,88 40,89 Q58,88 69,72 Q72,54 70,14 Z" fill="#F0E8D8" stroke="#D9CCBA" stroke-width="0.8"/>
+            <rect x="5" y="48" width="70" height="18" fill="#993C1D" opacity="0.25" clip-path="url(#bc3m)"/>
+            <rect x="5" y="58" width="70" height="17" fill="#3B6D11" opacity="0.22" clip-path="url(#bc3m)"/>
+            <rect x="5" y="68" width="70" height="26" fill="#854F0B" opacity="0.25" clip-path="url(#bc3m)"/>
+            <path d="M10,14 Q8,54 11,72 Q22,88 40,89 Q58,88 69,72 Q72,54 70,14 Z" fill="none" stroke="#993C1D" stroke-width="0.8" stroke-dasharray="2,3" opacity="0.4"/>
+          </svg>
+          <div style="display:flex;gap:6px;margin-top:4px">
+            <div style="display:flex;align-items:center;gap:3px;font-size:8px;color:#8C7B6A"><div style="width:6px;height:6px;border-radius:50%;background:#993C1D"></div>P</div>
+            <div style="display:flex;align-items:center;gap:3px;font-size:8px;color:#8C7B6A"><div style="width:6px;height:6px;border-radius:50%;background:#3B6D11"></div>C</div>
+            <div style="display:flex;align-items:center;gap:3px;font-size:8px;color:#8C7B6A"><div style="width:6px;height:6px;border-radius:50%;background:#854F0B"></div>F</div>
+          </div>
+        </div>
+        <div class="m-card-warm">
+          <div class="m-clabel-warm">Report</div>
+          <div class="m-ring-row">
+            <svg viewBox="0 0 28 28" style="width:26px;height:26px;flex-shrink:0"><circle cx="14" cy="14" r="10" fill="none" stroke="#F5DDD0" stroke-width="3"/><circle cx="14" cy="14" r="10" fill="none" stroke="#993C1D" stroke-width="3" stroke-dasharray="47 63" stroke-linecap="round" transform="rotate(-90 14 14)"/></svg>
+            <div><div class="m-ring-name-warm">Protein</div><div class="m-ring-val-warm">150g</div></div>
+          </div>
+          <div class="m-ring-row">
+            <svg viewBox="0 0 28 28" style="width:26px;height:26px;flex-shrink:0"><circle cx="14" cy="14" r="10" fill="none" stroke="#D6EAC8" stroke-width="3"/><circle cx="14" cy="14" r="10" fill="none" stroke="#3B6D11" stroke-width="3" stroke-dasharray="41 63" stroke-linecap="round" transform="rotate(-90 14 14)"/></svg>
+            <div><div class="m-ring-name-warm">Carbs</div><div class="m-ring-val-warm">260g</div></div>
+          </div>
+          <div class="m-ring-row">
+            <svg viewBox="0 0 28 28" style="width:26px;height:26px;flex-shrink:0"><circle cx="14" cy="14" r="10" fill="none" stroke="#FAEEDA" stroke-width="3"/><circle cx="14" cy="14" r="10" fill="none" stroke="#854F0B" stroke-width="3" stroke-dasharray="28 63" stroke-linecap="round" transform="rotate(-90 14 14)"/></svg>
+            <div><div class="m-ring-name-warm">Fats</div><div class="m-ring-val-warm">36g</div></div>
+          </div>
+          <div style="font-size:9px;color:#A8967E;margin-top:4px;margin-bottom:4px">Watch grid</div>
+          <div class="m-dotgrid">
+            <div class="dot" style="background:#2C4A1E"></div><div class="dot" style="background:#2C4A1E"></div><div class="dot" style="background:#2C4A1E"></div><div class="dot" style="background:#2C4A1E"></div><div class="dot" style="background:#2C4A1E"></div><div class="dot" style="background:#7A2010"></div><div class="dot" style="background:#2C4A1E"></div><div class="dot" style="background:#2C4A1E"></div><div class="dot" style="background:#2C4A1E"></div>
+            <div class="dot" style="background:#2C4A1E"></div><div class="dot" style="background:#2C4A1E"></div><div class="dot" style="background:#2C4A1E"></div><div class="dot" style="background:#E8DDD0;border:0.5px solid #D9CCBA"></div><div class="dot" style="background:#E8DDD0;border:0.5px solid #D9CCBA"></div><div class="dot" style="background:#E8DDD0;border:0.5px solid #D9CCBA"></div><div class="dot" style="background:#E8DDD0;border:0.5px solid #D9CCBA"></div><div class="dot" style="background:#E8DDD0;border:0.5px solid #D9CCBA"></div><div class="dot" style="background:#E8DDD0;border:0.5px solid #D9CCBA"></div>
+          </div>
+        </div>
+      </div>
+      <div class="m-footer-warm">
+        <div class="m-ftitle-warm">Chronos — 30 day history</div>
+        <svg viewBox="0 0 300 30" style="width:100%;display:block">
+          <polyline points="0,22 20,20 40,18 60,19 80,16 100,13 120,25 140,17 160,14 180,12 200,15 220,18 240,16 260,13 280,12 300,10" fill="none" stroke="#993C1D" stroke-width="1.5" stroke-linejoin="round"/>
+          <polyline points="0,24 20,23 40,21 60,22 80,20 100,18 120,27 140,21 160,19 180,17 200,20 220,22 240,20 260,18 280,17 300,15" fill="none" stroke="#3B6D11" stroke-width="1.2" stroke-linejoin="round"/>
+          <polyline points="0,26 20,25 40,24 60,25 80,23 100,21 120,29 140,24 160,22 180,20 200,23 220,25 240,23 260,21 280,20 300,18" fill="none" stroke="#854F0B" stroke-width="1.2" stroke-linejoin="round"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <div class="design-wrap d4">
+    <div class="design-label">4 — Warm organic · option A (same-family)</div>
+    <div class="mini">
+      <div class="m-hud m-hud-warm">
+        <span class="m-brand-warm">hlthstew</span>
+        <span class="m-day-warm">Day 12 / 45</span>
+        <span class="m-pill-warm" style="background:#D6EAC8;border-color:#4A7C2F;color:#1A3A0A">12 day streak</span>
+      </div>
+      <div class="m-row">
+        <div class="m-card-warm">
+          <div class="m-clabel-warm">Input</div>
+          <div class="m-term-warm"><span class="m-prompt-warm">&gt;</span> 200g chicken...</div>
+          <div class="m-ledger-warm">
+            <div class="m-lline" style="color:#7A6858"><span style="color:#4A7C2F">✓</span> Morning run</div>
+            <div class="m-lline" style="color:#7A6858"><span style="color:#4A7C2F">✓</span> Bench press</div>
+            <div class="m-lline" style="color:#C4B49E">○ Evening walk</div>
+          </div>
+        </div>
+        <div class="m-card-warm m-vessel">
+          <div class="m-calnum-warm">2,140</div>
+          <div class="m-callabel-warm">kcal today</div>
+          <div class="m-caltarget-warm">Target 3,000+</div>
+          <svg viewBox="0 0 80 90" style="width:70px;height:70px;margin-top:4px">
+            <defs><clipPath id="bc4m"><path d="M10,14 Q8,54 11,72 Q22,88 40,89 Q58,88 69,72 Q72,54 70,14 Z"/></clipPath></defs>
+            <path d="M10,14 Q8,54 11,72 Q22,88 40,89 Q58,88 69,72 Q72,54 70,14 Z" fill="#F0E8D8" stroke="#D9CCBA" stroke-width="0.8"/>
+            <rect x="5" y="48" width="70" height="18" fill="#993C1D" opacity="0.28" clip-path="url(#bc4m)"/>
+            <rect x="5" y="58" width="70" height="17" fill="#4A7C2F" opacity="0.22" clip-path="url(#bc4m)"/>
+            <rect x="5" y="68" width="70" height="26" fill="#854F0B" opacity="0.28" clip-path="url(#bc4m)"/>
+            <path d="M10,14 Q8,54 11,72 Q22,88 40,89 Q58,88 69,72 Q72,54 70,14 Z" fill="none" stroke="#993C1D" stroke-width="0.8" stroke-dasharray="2,3" opacity="0.4"/>
+          </svg>
+          <div style="display:flex;gap:6px;margin-top:4px">
+            <div style="display:flex;align-items:center;gap:3px;font-size:8px;color:#8C7B6A"><div style="width:6px;height:6px;border-radius:50%;background:#993C1D"></div>P</div>
+            <div style="display:flex;align-items:center;gap:3px;font-size:8px;color:#8C7B6A"><div style="width:6px;height:6px;border-radius:50%;background:#4A7C2F"></div>C</div>
+            <div style="display:flex;align-items:center;gap:3px;font-size:8px;color:#8C7B6A"><div style="width:6px;height:6px;border-radius:50%;background:#854F0B"></div>F</div>
+          </div>
+        </div>
+        <div class="m-card-warm">
+          <div class="m-clabel-warm">Report</div>
+          <div class="m-ring-row">
+            <svg viewBox="0 0 28 28" style="width:26px;height:26px;flex-shrink:0"><circle cx="14" cy="14" r="10" fill="none" stroke="#F5DDD0" stroke-width="3"/><circle cx="14" cy="14" r="10" fill="none" stroke="#993C1D" stroke-width="3" stroke-dasharray="47 63" stroke-linecap="round" transform="rotate(-90 14 14)"/></svg>
+            <div><div class="m-ring-name-warm">Protein</div><div class="m-ring-val-warm">150g</div></div>
+          </div>
+          <div class="m-ring-row">
+            <svg viewBox="0 0 28 28" style="width:26px;height:26px;flex-shrink:0"><circle cx="14" cy="14" r="10" fill="none" stroke="#D6EAC8" stroke-width="3"/><circle cx="14" cy="14" r="10" fill="none" stroke="#4A7C2F" stroke-width="3" stroke-dasharray="41 63" stroke-linecap="round" transform="rotate(-90 14 14)"/></svg>
+            <div><div class="m-ring-name-warm">Carbs</div><div class="m-ring-val-warm">260g</div></div>
+          </div>
+          <div class="m-ring-row">
+            <svg viewBox="0 0 28 28" style="width:26px;height:26px;flex-shrink:0"><circle cx="14" cy="14" r="10" fill="none" stroke="#FAEEDA" stroke-width="3"/><circle cx="14" cy="14" r="10" fill="none" stroke="#854F0B" stroke-width="3" stroke-dasharray="28 63" stroke-linecap="round" transform="rotate(-90 14 14)"/></svg>
+            <div><div class="m-ring-name-warm">Fats</div><div class="m-ring-val-warm">36g</div></div>
+          </div>
+          <div style="font-size:9px;color:#A8967E;margin-top:4px;margin-bottom:4px">Watch grid</div>
+          <div class="m-dotgrid">
+            <div class="dot" style="background:#4A7C2F"></div><div class="dot" style="background:#4A7C2F"></div><div class="dot" style="background:#4A7C2F"></div><div class="dot" style="background:#4A7C2F"></div><div class="dot" style="background:#4A7C2F"></div><div class="dot" style="background:#993C1D"></div><div class="dot" style="background:#4A7C2F"></div><div class="dot" style="background:#4A7C2F"></div><div class="dot" style="background:#4A7C2F"></div>
+            <div class="dot" style="background:#4A7C2F"></div><div class="dot" style="background:#4A7C2F"></div><div class="dot" style="background:#4A7C2F"></div><div class="dot" style="background:#E8DDD0;border:0.5px solid #D9CCBA"></div><div class="dot" style="background:#E8DDD0;border:0.5px solid #D9CCBA"></div><div class="dot" style="background:#E8DDD0;border:0.5px solid #D9CCBA"></div><div class="dot" style="background:#E8DDD0;border:0.5px solid #D9CCBA"></div><div class="dot" style="background:#E8DDD0;border:0.5px solid #D9CCBA"></div><div class="dot" style="background:#E8DDD0;border:0.5px solid #D9CCBA"></div>
+          </div>
+        </div>
+      </div>
+      <div class="m-footer-warm">
+        <div class="m-ftitle-warm">Chronos — 30 day history</div>
+        <svg viewBox="0 0 300 30" style="width:100%;display:block">
+          <polyline points="0,22 20,20 40,18 60,19 80,16 100,13 120,25 140,17 160,14 180,12 200,15 220,18 240,16 260,13 280,12 300,10" fill="none" stroke="#993C1D" stroke-width="1.5" stroke-linejoin="round"/>
+          <polyline points="0,24 20,23 40,21 60,22 80,20 100,18 120,27 140,21 160,19 180,17 200,20 220,22 240,20 260,18 280,17 300,15" fill="none" stroke="#4A7C2F" stroke-width="1.2" stroke-linejoin="round"/>
+          <polyline points="0,26 20,25 40,24 60,25 80,23 100,21 120,29 140,24 160,22 180,20 200,23 220,25 240,23 260,21 280,20 300,18" fill="none" stroke="#854F0B" stroke-width="1.2" stroke-linejoin="round"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+</div>
