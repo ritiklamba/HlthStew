@@ -37,16 +37,20 @@ document.getElementById('foodInput').addEventListener('keydown', function(e) {
   }
 });
 
+let ghostTimer;
 document.getElementById('foodInput').addEventListener('input', function() {
-  if (this.value.trim()) {
-    const parsed = parseFood(this.value.trim());
-    if (parsed) {
-      document.getElementById('ghostText').textContent =
-        `~${parsed.calories} kcal · P ${parsed.protein}g · C ${parsed.carbs}g · F ${parsed.fats}g`;
+  clearTimeout(ghostTimer);
+  ghostTimer = setTimeout(() => {
+    if (this.value.trim()) {
+      const parsed = parseFood(this.value.trim());
+      if (parsed) {
+        document.getElementById('ghostText').textContent =
+          `~${parsed.calories} kcal · P ${parsed.protein}g · C ${parsed.carbs}g · F ${parsed.fats}g`;
+      }
+    } else {
+      document.getElementById('ghostText').textContent = 'Start typing to see estimates...';
     }
-  } else {
-    document.getElementById('ghostText').textContent = 'Start typing to see estimates...';
-  }
+  }, 300);
 });
 
 function addLoggedItem(item, idx) {
