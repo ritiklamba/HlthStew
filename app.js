@@ -37,7 +37,7 @@ document.getElementById('foodInput').addEventListener('keydown', function(e) {
   }
 });
 
-let ghostTimer;
+
 document.getElementById('foodInput').addEventListener('input', function() {
   clearTimeout(ghostTimer);
   ghostTimer = setTimeout(() => {

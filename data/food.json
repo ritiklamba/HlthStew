@@ -1,5 +1,5 @@
 {
-  "chicken": { "per100": { "calories": 165, "protein": 31, "carbs": 0, "fats": 4 } },
+  "chicken": { "per100": { "calories": 165, "protein": 31, "carbs": 0, "fats": 4 } },git push -u origin main
   "chicken breast": { "per100": { "calories": 165, "protein": 31, "carbs": 0, "fats": 4 } },
   "chicken leg": { "per1": { "calories": 180, "protein": 24, "carbs": 0, "fats": 9 } },
   "egg": { "per1": { "calories": 70, "protein": 6, "carbs": 0.5, "fats": 5 } },

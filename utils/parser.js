@@ -1,7 +1,7 @@
 let foodDB = {};
 let foodDBLoaded = false;
 
-fetch('data/foods.json')
+fetch('./data/foods.json')
   .then(r => r.json())
   .then(data => { foodDB = data; foodDBLoaded = true; });
 
