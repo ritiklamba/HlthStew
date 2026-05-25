@@ -1,7 +1,7 @@
 let debounceTimer;
 let ghostTimer;
 
-const TARGETS = { calories: 3000, protein: 200, carbs: 400, fats: 80 };
+const TARGETS = { calories: 0, protein: 0, carbs: 0, fats: 0 };
 let totals = { calories: 0, protein: 0, carbs: 0, fats: 0 };
 let loggedItems = [];
 

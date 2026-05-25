@@ -196,11 +196,11 @@
     document.getElementById('settingsPanel').classList.add('hidden');
   }
 
-  function applySettings(s) {
-    TARGETS.calories = s.targetCalories;
-    TARGETS.protein = s.targetProtein;
-    TARGETS.carbs = s.targetCarbs;
-    TARGETS.fats = s.targetFats;
+function applySettings(s) {
+    TARGETS.calories = s.targetCalories > 0 ? s.targetCalories : TARGETS.calories;
+    TARGETS.protein = s.targetProtein > 0 ? s.targetProtein : TARGETS.protein;
+    TARGETS.carbs = s.targetCarbs > 0 ? s.targetCarbs : TARGETS.carbs;
+    TARGETS.fats = s.targetFats > 0 ? s.targetFats : TARGETS.fats;
     document.querySelector('.session-text').textContent = s.name;
     document.querySelector('.avatar').textContent = s.name.charAt(0).toUpperCase();
     document.querySelector('.bio-pill').innerHTML = s.currentWeight + ' kg <span class="arr">→</span> ' + s.targetWeight + ' kg';
@@ -208,10 +208,11 @@
     document.querySelector('.cycle-label').textContent = s.cycleName;
     document.getElementById('watchProgress').textContent = s.currentDay + ' / ' + s.cycleLength;
     const rt = document.querySelectorAll('.ring-target');
-    if (rt[0]) rt[0].textContent = '/ ' + s.targetProtein + 'g';
-    if (rt[1]) rt[1].textContent = '/ ' + s.targetCarbs + 'g';
-    if (rt[2]) rt[2].textContent = '/ ' + s.targetFats + 'g';
+    if (rt[0]) rt[0].textContent = '/ ' + TARGETS.protein + 'g';
+    if (rt[1]) rt[1].textContent = '/ ' + TARGETS.carbs + 'g';
+    if (rt[2]) rt[2].textContent = '/ ' + TARGETS.fats + 'g';
   }
+  
 document.addEventListener('DOMContentLoaded', initSettings);
   </script>
 
