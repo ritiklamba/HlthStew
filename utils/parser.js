@@ -32,7 +32,7 @@ const foodDB = {
   "peanuts": { "per100": { "calories": 567, "protein": 26, "carbs": 16, "fats": 49 } }
 };
 
-let ghostTimer;
+
 
 function parseFood(input) {
   input = input.toLowerCase().trim();

@@ -192,6 +192,7 @@
     };
     localStorage.setItem('hlthstew_settings', JSON.stringify(s));
     applySettings(s);
+    updateAll();
     document.getElementById('settingsPanel').classList.add('hidden');
   }
 
@@ -214,7 +215,7 @@
 document.addEventListener('DOMContentLoaded', initSettings);
   </script>
 
-  <script src="components/pin.js"></script>
+
 
 </body>
 </html>
