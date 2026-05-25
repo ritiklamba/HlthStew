@@ -13,15 +13,15 @@
   <header class="hud">
     <div class="hud-left">
       <div class="avatar" id="settingsBtn">A</div>
-      <span class="session-text">Aryan</span>
+      <span class="session-text">user</span>
     </div>
     <div class="hud-center">
-      <span class="day-counter">Day <strong>12</strong> of 45</span>
+      <span class="day-counter">Day <strong>1</strong> of 45</span>
       <span class="hud-dot">·</span>
       <span class="cycle-label">Bulk cycle</span>
     </div>
     <div class="hud-right">
-      <div class="bio-pill">61.5 kg <span class="arr">→</span> 80 kg</div>
+      <div class="bio-pill">0.0 kg <span class="arr">→</span> 0.0 kg</div>
       <div class="export-btn" id="exportBtn">↓ Export</div>
     </div>
   </header>
@@ -49,7 +49,7 @@
       <div class="cal-crown">
         <div class="cal-number" id="calNumber">0</div>
         <div class="cal-unit">kcal today</div>
-        <div class="cal-target" id="calTarget">Target 3,000 kcal · 0% filled</div>
+        <div class="cal-target" id="calTarget">Target 0 kcal · 0% filled</div>
       </div>
       <div class="bowl-wrap">
         <svg class="bowl-svg" viewBox="0 0 160 180" xmlns="http://www.w3.org/2000/svg">
@@ -85,7 +85,7 @@
           </svg>
           <div class="ring-info">
             <div class="ring-name">Protein</div>
-            <div class="ring-val" id="proteinVal">0g <span class="ring-target">/ 200g</span></div>
+            <div class="ring-val" id="proteinVal">0g <span class="ring-target">/ 0g</span></div>
             <div class="ring-sub">Priority anchor</div>
           </div>
         </div>
@@ -97,7 +97,7 @@
           </svg>
           <div class="ring-info">
             <div class="ring-name">Carbohydrates</div>
-            <div class="ring-val" id="carbsVal">0g <span class="ring-target">/ 400g</span></div>
+            <div class="ring-val" id="carbsVal">0g <span class="ring-target">/ 0g</span></div>
             <div class="ring-sub">Energy allocation</div>
           </div>
         </div>
@@ -109,13 +109,13 @@
           </svg>
           <div class="ring-info">
             <div class="ring-name">Fats</div>
-            <div class="ring-val" id="fatsVal">0g <span class="ring-target">/ 80g</span></div>
+            <div class="ring-val" id="fatsVal">0g <span class="ring-target">/ 0g</span></div>
             <div class="ring-sub">Stable fats</div>
           </div>
         </div>
       </div>
       <hr class="divider"/>
-      <p class="panel-label">Watch Grid · <span id="watchProgress">12 / 45</span></p>
+      <p class="panel-label">Watch Grid · <span id="watchProgress">0 / 0</span></p>
       <div class="dot-grid" id="dotGrid"></div>
     </section>
   </main>
@@ -143,7 +143,7 @@
   <script src="app.js"></script>
 <script>
   function initSettings() {
-    const defaults = { name:'Aryan', currentWeight:61.5, targetWeight:80, targetCalories:3000, targetProtein:200, targetCarbs:400, targetFats:80, cycleLength:45, currentDay:12, cycleName:'Bulk cycle' };
+    const defaults = { name:'user', currentWeight:0.0, targetWeight:0.0, targetCalories:0, targetProtein:0, targetCarbs:0, targetFats:0, cycleLength:0, currentDay:0, cycleName:'cycle' };
     const saved = JSON.parse(localStorage.getItem('hlthstew_settings') || '{}');
     const s = { ...defaults, ...saved };
     applySettings(s);
