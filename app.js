@@ -1,8 +1,6 @@
 let debounceTimer;
-function debounce(fn, delay = 100) {
-  clearTimeout(debounceTimer);
-  debounceTimer = setTimeout(fn, delay);
-}
+let ghostTimer;
+
 const TARGETS = { calories: 3000, protein: 200, carbs: 400, fats: 80 };
 let totals = { calories: 0, protein: 0, carbs: 0, fats: 0 };
 let loggedItems = [];
@@ -32,11 +30,11 @@ document.getElementById('foodInput').addEventListener('keydown', function(e) {
       addLoggedItem(parsed, loggedItems.length - 1);
       this.value = '';
       document.getElementById('ghostText').textContent = 'Start typing to see estimates...';
-      debounce(updateAll);
+      clearTimeout(debounceTimer);
+      debounceTimer = setTimeout(updateAll, 50);
     }
   }
 });
-
 
 document.getElementById('foodInput').addEventListener('input', function() {
   clearTimeout(ghostTimer);
@@ -50,7 +48,7 @@ document.getElementById('foodInput').addEventListener('input', function() {
     } else {
       document.getElementById('ghostText').textContent = 'Start typing to see estimates...';
     }
-  }, 300);
+  }, 400);
 });
 
 function addLoggedItem(item, idx) {
@@ -66,10 +64,10 @@ function addLoggedItem(item, idx) {
 function removeItem(el) {
   const idx = parseInt(el.dataset.idx);
   loggedItems.splice(idx, 1);
-  el.remove();
   recalcTotals();
   rerenderList();
- debounce(updateAll);
+  clearTimeout(debounceTimer);
+  debounceTimer = setTimeout(updateAll, 50);
 }
 
 function rerenderList() {
@@ -87,4 +85,4 @@ document.getElementById('ledgerDate').textContent =
 
 initDotGrid();
 loadFromStorage();
-debounce(updateAll);
+updateAll();
