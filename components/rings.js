@@ -6,7 +6,7 @@ function updateRings() {
 }
 
 function updateRing(name, val, target, circ) {
-  const pct = Math.min(val / target, 1);
+ const pct = target > 0 ? Math.min(val / target, 1) : 0;
   const dash = pct * circ;
   document.getElementById(name + 'Ring').setAttribute('stroke-dasharray', `${dash} ${circ}`);
   document.getElementById(name + 'Pct').textContent = Math.round(pct * 100) + '%';

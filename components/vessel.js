@@ -1,5 +1,5 @@
 function updateVessel() {
-  const pct = Math.min(totals.calories / TARGETS.calories, 1);
+ const pct = TARGETS.calories > 0 ? Math.min(totals.calories / TARGETS.calories, 1) : 0;
   const bowlHeight = 146;
   const totalFilled = bowlHeight * pct;
 
