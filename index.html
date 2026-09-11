@@ -130,6 +130,7 @@
       </div>
     </div>
     <canvas id="chronosChart" height="70"></canvas>
+    <p class="privacy-note">Your entries stay in this browser. Nutrition estimates are informational, not medical advice.</p>
   </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -143,10 +144,11 @@
   <script src="app.js"></script>
 <script>
   function initSettings() {
-    const defaults = { name:'user', currentWeight:0.0, targetWeight:0.0, targetCalories:0, targetProtein:0, targetCarbs:0, targetFats:0, cycleLength:0, currentDay:0, cycleName:'cycle' };
+    const defaults = { name:'user', currentWeight:0.0, targetWeight:0.0, targetCalories:2200, targetProtein:120, targetCarbs:250, targetFats:70, cycleLength:45, currentDay:1, cycleName:'nutrition cycle' };
     const saved = JSON.parse(localStorage.getItem('hlthstew_settings') || '{}');
     const s = { ...defaults, ...saved };
     applySettings(s);
+    updateAll();
     const panel = document.createElement('div');
     panel.id = 'settingsPanel';
     panel.className = 'settings-overlay hidden';
@@ -220,3 +222,4 @@ document.addEventListener('DOMContentLoaded', initSettings);
 
 </body>
 </html>
+
