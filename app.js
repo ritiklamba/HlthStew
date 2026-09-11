@@ -32,6 +32,9 @@ document.getElementById('foodInput').addEventListener('keydown', function(e) {
       document.getElementById('ghostText').textContent = 'Start typing to see estimates...';
       clearTimeout(debounceTimer);
       debounceTimer = setTimeout(updateAll, 50);
+    } else {
+      document.getElementById('ghostText').textContent =
+        'Food not recognized. Try a listed food and amount, e.g. “200g chicken” or “2 eggs”.';
     }
   }
 });
@@ -56,8 +59,18 @@ function addLoggedItem(item, idx) {
   const div = document.createElement('div');
   div.className = 'logged-item';
   div.dataset.idx = idx;
-  div.innerHTML = `<span>${item.name}</span><span class="item-kcal">${item.calories} kcal</span><span class="item-del">×</span>`;
-  div.querySelector('.item-del').addEventListener('click', () => removeItem(div));
+  const name = document.createElement('span');
+  name.textContent = item.name;
+  const calories = document.createElement('span');
+  calories.className = 'item-kcal';
+  calories.textContent = `${item.calories} kcal`;
+  const remove = document.createElement('button');
+  remove.className = 'item-del';
+  remove.type = 'button';
+  remove.setAttribute('aria-label', `Remove ${item.name}`);
+  remove.textContent = '×';
+  remove.addEventListener('click', () => removeItem(div));
+  div.append(name, calories, remove);
   list.appendChild(div);
 }
 
@@ -86,3 +99,4 @@ document.getElementById('ledgerDate').textContent =
 initDotGrid();
 loadFromStorage();
 updateAll();
+
