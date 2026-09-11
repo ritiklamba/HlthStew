@@ -56,12 +56,16 @@ function parseFood(input) {
     }
   }
 
-  return { name: input, calories: 100, protein: 5, carbs: 10, fats: 3 };
+  // Nutrition logs should never look precise when we do not know the food.
+  // Callers can offer manual entry rather than silently adding an estimate.
+  return null;
 }
 
 function findFood(name) {
-  for (const key of Object.keys(foodDB)) {
+  // Prefer the longest match: "sweet potato" must not resolve as "potato".
+  for (const key of Object.keys(foodDB).sort((a, b) => b.length - a.length)) {
     if (name.includes(key)) return foodDB[key];
   }
   return null;
 }
+
