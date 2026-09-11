@@ -1,33 +1,46 @@
+function safeRead(key, fallback) {
+  try {
+    const value = localStorage.getItem(key);
+    return value ? JSON.parse(value) : fallback;
+  } catch {
+    return fallback;
+  }
+}
+
+function currentDateKey() {
+  return new Date().toDateString();
+}
+
 function saveToStorage() {
   localStorage.setItem('hlthstew_totals', JSON.stringify(totals));
   localStorage.setItem('hlthstew_items', JSON.stringify(loggedItems));
-  localStorage.setItem('hlthstew_ledger', document.getElementById('ledgerArea').value);
+  localStorage.setItem(`hlthstew_ledger_${currentDateKey()}`, document.getElementById('ledgerArea').value);
 }
 
 function loadFromStorage() {
-  const savedTotals = localStorage.getItem('hlthstew_totals');
-  if (savedTotals) {
-    const t = JSON.parse(savedTotals);
-    const today = new Date().toDateString();
-    const savedDate = localStorage.getItem('hlthstew_date');
-    if (savedDate === today) {
-      Object.assign(totals, t);
-      const items = JSON.parse(localStorage.getItem('hlthstew_items') || '[]');
-      items.forEach(item => { loggedItems.push(item); addLoggedItem(item); });
-    } else {
-      saveHistoryDay();
-      localStorage.setItem('hlthstew_date', today);
-    }
-  } else {
-    localStorage.setItem('hlthstew_date', new Date().toDateString());
+  const today = currentDateKey();
+  const savedDate = localStorage.getItem('hlthstew_date');
+  const savedTotals = safeRead('hlthstew_totals', null);
+  const savedItems = safeRead('hlthstew_items', []);
+
+  if (savedTotals && savedDate && savedDate !== today) {
+    saveHistoryDay(savedTotals, savedDate);
+    localStorage.setItem('hlthstew_totals', JSON.stringify({ calories: 0, protein: 0, carbs: 0, fats: 0 }));
+    localStorage.setItem('hlthstew_items', JSON.stringify([]));
+  } else if (savedTotals) {
+    Object.assign(totals, savedTotals);
+    savedItems.forEach((item, index) => { loggedItems.push(item); addLoggedItem(item, index); });
   }
-  const ledger = localStorage.getItem('hlthstew_ledger');
+  localStorage.setItem('hlthstew_date', today);
+
+  const ledger = localStorage.getItem(`hlthstew_ledger_${today}`) || '';
   if (ledger) document.getElementById('ledgerArea').value = ledger;
 }
 
-function saveHistoryDay() {
-  const history = JSON.parse(localStorage.getItem('hlthstew_history') || '[]');
-  history.push({ ...totals, date: new Date().toDateString() });
+function saveHistoryDay(dayTotals, date) {
+  const history = safeRead('hlthstew_history', []);
+  if (!dayTotals || Object.values(dayTotals).every(value => Number(value) === 0)) return;
+  history.push({ ...dayTotals, date });
   if (history.length > 30) history.shift();
   localStorage.setItem('hlthstew_history', JSON.stringify(history));
 }
@@ -42,3 +55,4 @@ function exportLog() {
   a.download = `hlthstew-${new Date().toISOString().split('T')[0]}.md`;
   a.click();
 }
+
