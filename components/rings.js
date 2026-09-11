@@ -10,6 +10,12 @@ function updateRing(name, val, target, circ) {
   const dash = pct * circ;
   document.getElementById(name + 'Ring').setAttribute('stroke-dasharray', `${dash} ${circ}`);
   document.getElementById(name + 'Pct').textContent = Math.round(pct * 100) + '%';
-  document.getElementById(name + 'Val').innerHTML =
-    `${Math.round(val)}g <span class="ring-target">/ ${target}g</span>`;
+  const valueEl = document.getElementById(name + 'Val');
+  valueEl.replaceChildren();
+  valueEl.append(`${Math.round(val)}g `);
+  const targetEl = document.createElement('span');
+  targetEl.className = 'ring-target';
+  targetEl.textContent = `/ ${target}g`;
+  valueEl.append(targetEl);
 }
+
